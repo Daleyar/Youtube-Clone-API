@@ -1,7 +1,6 @@
-from django.db.models.fields.related import ForeignKey
 from django.shortcuts import render
-from .models import Comment, Reply
-from .serializers import CommentSerializer, ReplySerializer
+from .models import Comment
+from .serializers import CommentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -15,7 +14,7 @@ class CommentList(APIView):
         return Response(serializer.data)
 
 class PostCommment(APIView):
-    def post(self,request, video_id):
+    def post(self,request):
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
